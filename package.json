@@ -2,7 +2,7 @@
   "name": "shoping-site",
   "version": "1.0.0",
   "engine":{
-  "node":"v12.18.3"
+    "node":"v12.18.3"
   },
   "description": "",
   "main": "server.js",

@@ -1,0 +1,62 @@
+<%- include('../partials/header'); %>
+    
+    <div class="container content-container">
+        <h1>Order Confirmation</h1>
+        <form method="POST" action="/payment">
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input class="form-control" id="first_name" name="first_name" />
+            </div>
+
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input class="form-control" id="last_name" name="last_name" />
+            </div>
+
+            <div class="form-group">
+                <label for="contact-number">Contact number</label>
+                <input class="form-control" id="contact-number" name="contact-number" />
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input class="form-control" id="address" name="address" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        // Create an instance of the Stripe object with your publishable API key
+   
+        var stripe = Stripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+        var checkoutButton = document.getElementById("checkout-button");
+        checkoutButton.addEventListener("click", function () {
+          // const query = querystring.stringify({
+          //   "reference": orderReference
+          // })
+         
+          fetch("/cart/checkout", {
+            method: "POST",
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (session) {
+              return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function (result) {
+              // If redirectToCheckout fails due to a browser or network
+              // error, you should display the localized error message to your
+              // customer using error.message.
+              if (result.error) {
+                alert(result.error.message);
+              }
+            })
+            .catch(function (error) {
+              console.error("Error:", error);
+            });
+        });
+      </script>  
+<%- include('../partials/footer'); %>

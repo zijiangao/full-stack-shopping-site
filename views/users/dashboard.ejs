@@ -1,0 +1,41 @@
+<%- include('../partials/header'); %>
+    
+    <div class="container content-container">
+        <div class="shopping-cart-size-container">
+        <h1>Welcome to your account</h1>
+        <h2 style="text-align: left; margin-top: 20px;">My Orders</h2>
+        <ul class="label-list">
+            <li class="order-reference-label">
+                <b>Order Reference</b>
+            </li>
+            <li class="order-time-label">
+                <b>Order Time</b>
+            </li>
+            <li class="order-status-label">
+                <b>Order Status</b>
+            </li>
+        </ul>
+        <% orders.forEach((order,orderIndex)=>{ %>
+                <ul class="selected-item-card">
+                    <li class="shopping-cart-item">
+                        <div class="order-reference">
+                            <%= order.orderReference %>
+                        </div>    
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="order-time">
+                            <%= order.created_at.getFullYear()+'-'+(order.created_at.getMonth()+1)+'-'+order.created_at.getDate() %>
+                            <%= order.created_at.getHours() + ":" + order.created_at.getMinutes() + ":" + order.created_at.getSeconds() %>
+                        </div>
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="order-status">
+                            <%= order.status %>
+                        </div>
+                    </li>
+                </ul>       
+        <% }) %>
+        </div>
+    </div>
+
+<%- include('../partials/footer'); %>

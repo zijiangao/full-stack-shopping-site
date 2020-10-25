@@ -1,0 +1,36 @@
+<%- include('../partials/header'); %>    
+    <div class="container content-container">
+        <h1>Postal Information</h1>
+        <form method="POST" action="/cart/confirmation">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" id="name" name="name" placeholder="e.g. David Daycock">
+            </div>
+
+            <div class="form-group">
+                <label for="contact-number">Contact number</label>
+                <input class="form-control" id="contact-number" name="contact-number" placeholder="e.g. 91234567">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <p class="form-control" id="address" name="address" style="display:none;"></p>
+                <input class="form-control" id="address-input" name="address-input" style="display:none;"></p>
+            </div>
+            <div class="form-group" id="postal-code-form">
+                <label><b>Please enter destination postal code</b></label>
+                <input id="postal-code-input" class="form-control" placeholder="e.g. 760115">
+                <button id="postal-code-button" class="btn btn-primary">Verify Postal Code</button>
+            </div>
+            <div class="form-group" id="unit-number-form" style="display:none;">
+                <label><b>Please enter destination unit number</b></label>
+                <input id="unit-number" name="unit-number" class="form-control" placeholder="e.g. 08-500">
+            </div>
+            
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+
+<%- include('../partials/footer'); %>

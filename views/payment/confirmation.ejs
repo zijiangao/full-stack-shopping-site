@@ -1,0 +1,100 @@
+<%- include('../partials/header'); %>
+    
+    <div class="container content-container">
+        <h1><%= pageTitle%></h1>
+
+            <div class="confirmation-item">
+                <h3>Mail to: </h3>
+                <p><%= name %></p>
+            </div>
+            <div class="confirmation-item">
+                <h3>Contact number: </h3>
+                <p><%= contactNumber %></p>
+            </div>
+            <div class="confirmation-item">
+                <h3>Address: </h3>
+                <p><%= address %></p>
+                <p><%= unitNumber %></p>
+            </div>
+            <ul class="label-list">
+                <li class="shopping-cart-info-label">
+                    Product Information
+                </li>
+                <li class="shopping-cart-price-label">
+                    Unit Price
+                </li>
+                <li class="shopping-cart-quantity-label">
+                    Quantity
+                </li>
+                <li class="shopping-cart-sum-label">
+                    Total Price
+                </li>
+            </ul>
+        
+            <% products.addedItemsSlug.forEach( (item, idx) => { %>
+                <ul class="selected-item-card">
+                    <li class="shopping-cart-item">
+                
+                            <div class="shopping-cart-img-container" style="margin:10px;">
+                                <img class="img-fluid" src="<%= products.addedItemsImage[idx] %>">     
+                            </div>
+                       
+                    </li>
+                    <li class="shopping-cart-item">
+                       
+                            <div class="shopping-cart-card-title"  style="margin:10px;">
+                                <%= products.addedItemsName[idx] %>
+                            </div>
+                     
+                        
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="shopping-cart-card-price">
+                            <%= '$' + products.addedItemsPrice[idx] %>
+                        </div>
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="shopping-cart-card-qty">
+                            <%= products.addedItemsQty[idx] %>
+                        </div>
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="shopping-cart-card-sum">
+                            <%= '$' + (products.addedItemsQty[idx]*products.addedItemsPrice[idx]) %>
+                        </div>
+                    </li>
+                </ul>       
+                <% }) %> 
+            
+            <button id="payment-button" class="btn btn-primary">Submit</button>
+    </div>
+    <script type="text/javascript">
+        // Create an instance of the Stripe object with your publishable API key
+        var stripe = Stripe("pk_test_TYooMQauvdEDq54NiTphI7jx");
+        var checkoutButton = document.getElementById("payment-button");
+        checkoutButton.addEventListener("click", function () {
+
+                                               
+          fetch("/payment"+ '/?' + "reference=<%= orderReference %>", {
+            method: "POST",
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (session) {
+              return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function (result) {
+              // If redirectToCheckout fails due to a browser or network
+              // error, you should display the localized error message to your
+              // customer using error.message.
+              if (result.error) {
+                alert(result.error.message);
+              }
+            })
+            .catch(function (error) {
+              console.error("Error:", error);
+            });
+        });
+      </script>  
+<%- include('../partials/footer'); %>

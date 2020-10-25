@@ -1,0 +1,320 @@
+body{
+    text-align: center;
+
+}
+.content-container{
+    padding-top:100px;
+}
+a{
+    display:inline-block;
+    margin: 10px;
+}
+.logout-button{
+    margin:10px;
+}
+.img-container{
+    width:250px;
+    height:250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto ;
+    margin-top: 20px;
+}
+.product-card{
+    transition: box-shadow .3s;
+    width: 300px;
+    height: 500px;
+    margin: 10px;
+    border-radius:10px;
+    /* border: 1px solid #ccc; */
+    background: #fff;
+    display:inline-block;
+    margin: 10px;
+
+}
+.show-product-card{
+    transition: box-shadow .3s;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+    width: 300px;
+    height: 500px;
+    margin: 10px;
+    border-radius:10px;
+    /* border: 1px solid #ccc; */
+    background: #fff;
+    display:inline-block;
+    margin: 10px;
+}
+.product-card:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  }
+.card-text{
+    text-align: left;
+    margin-left: 30px;
+}
+.show-product-card .show-card-text{
+    text-align: center;
+}
+.show-product-card .show-card-title{
+    color:black;
+    font-weight: bold;
+    font-size: large;
+    height: 72px;
+}
+
+.card-title{
+    margin-top:20px;
+    color:black;
+    font-weight: bold;
+    font-size: large;
+    height: 72px;
+}
+.card-price{
+    color:orange;
+    font-size: large;
+    font-weight: bold;
+}
+.button-container{
+    margin-top: 30px;
+}
+img{
+    object-fit: cover;
+}
+.out-of-stock{
+    color:red;
+    font-weight: bold;
+}
+.navbar{
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+.show-content-container{
+    width:1000px;
+    display: flex;
+}
+.preview-panel{
+    width:350px;
+    height:400px;
+    display:inline-block;
+}
+
+.detail-infomation-panel{
+    width:550px;
+    display:inline-block;
+    text-align: left;
+    margin: 10px;
+}
+
+.img-zoom-container {
+    position: relative;
+    
+  }
+  
+.img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    /*set the size of the lens:*/
+    width: 200px;
+    height: 154px;
+    background: dodgerblue;
+    opacity: 0.1;
+}
+
+.img-zoom-result {
+    border: 1px solid #d4d4d4;
+    position:absolute;
+    top:0px;
+    left:360px;
+    /*set the size of the result div:*/
+    width: 800px;
+    height: 500px;
+} 
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+  
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+  
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+  
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+  
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+.shopping-cart-img-container{
+    width:82px;
+    height:82px;
+}
+.shopping-cart-item{
+    display:inline-block;
+}
+.label-list li{
+    display:inline-block;
+    text-align: left;
+}
+.shopping-cart-info-label{
+    width:350px;
+}
+.shopping-cart-price-label{
+    width:130px;
+}
+.shopping-cart-quantity-label{
+    width:120px;
+}
+.shopping-cart-sum-label{
+    width:140px;
+}
+.shopping-cart-operations-label{
+    width:150px;
+}
+.shopping-cart-img-container{
+    width:82px;
+}
+.shopping-cart-card-title{
+    width:248px;
+}
+.shopping-cart-card-price{
+    width:130px;
+}
+.shopping-cart-card-qty{
+    width:120px;
+}
+.shopping-cart-card-sum{
+    width:140px;
+}
+.shopping-cart-card-operations{
+    width:150px;
+}
+.selected-item-card li{
+    text-align: left;
+}
+.selected-item-card{
+    border: 1px solid #d4d4d4;
+}
+.shopping-cart-size-container{
+    width:1200px;
+    margin: auto;
+}
+.checkout-list{
+    display:block;
+    text-align: right;
+}
+.checkout-list li{
+    display: inline-block;
+    text-align: right;
+    margin-right: 170px;
+}
+.no-shopping-cart-item{
+    height:300px;
+    margin:auto;
+    padding: auto;
+}
+.checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #7ac142;
+    fill: none;
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
+  
+  .checkmark {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 5;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    margin: 10% auto;
+    box-shadow: inset 0px 0px 0px #7ac142;
+    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+  }
+  
+  .checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  }
+  
+  @keyframes stroke {
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes scale {
+    0%, 100% {
+      transform: none;
+    }
+    50% {
+      transform: scale3d(1.1, 1.1, 1);
+    }
+  }
+  @keyframes fill {
+    100% {
+      box-shadow: inset 0px 0px 0px 200px #7ac142;
+    }
+  }
+  .form-group{
+      text-align: left;
+  }
+  .confirmation-item{
+      text-align: left;
+  }
+.order-reference{
+    width:400px;
+}
+.order-time{
+    width:200px;
+}
+.order-status{
+    width:100px;
+}
+.order-reference-label{
+    width:400px;
+}
+.order-time-label{
+    width:200px;
+}
+.order-status-label{
+    width:100px;
+}
+

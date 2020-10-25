@@ -1,0 +1,55 @@
+<%- include('../partials/header'); %>
+    <div class="container content-container">
+
+        <div class="show-content-container">
+            <div class="preview-panel">
+                <div class="img-zoom-container">
+                    <img id="myimage" class="img-fluid" src="<%= item.image %>">
+                    <!-- //laz-img-sg.alicdn.com/p/e83a562e082d95ec5a7799ef002207fd.jpg_1200x1200q80.jpg -->
+                    <!-- <div id="myresult" class="img-zoom-result"></div> -->
+                </div>
+            </div>
+            <div class="detail-infomation-panel">
+                <!-- <article> -->
+                    <h2><%= item.name %></h2>
+                    <h1> $<%= item.price %></h1>
+                    <p>
+                        <a class="btn btn-primary" href="/products/<%= item.slug %>/ratings/new">Give Rating</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-primary" href="/cart/<%= item.slug %>/buy">Buy Now</a>
+                        <a class="btn btn-primary" href="/cart/<%= item.slug %>/add">Add to cart</a>
+                    <% if(result==="success"){  %>
+                        <div id="snackbar">Successfully added item to <a href="/cart">shopping cart</a></div>
+                        <script>
+                        // Get the snackbar DIV
+                        var x = document.getElementById("snackbar");
+                      
+                        // Add the "show" class to DIV
+                        x.className = "show";
+                        
+                        // After 3 seconds, remove the show class from DIV
+                        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                        </script>
+                        
+                    <%}%>
+                        
+                        
+                    </p>
+                <!-- </article> -->
+            </div>
+        </div>
+    
+        <section id="product-ratings">
+            <ul>
+                <% ratings.forEach(item => { %>
+                    <li>
+                        <p>Rating: <%= item.rating %></p>
+                        <p>Comment: <%= item.comment %></p>
+                        <p>Comment Date: <%= item.created_at %></p>
+                    </li>
+                <% }) %> 
+            </ul>
+        </section>
+    </div>
+<%- include('../partials/footer'); %>

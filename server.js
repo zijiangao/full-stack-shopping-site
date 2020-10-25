@@ -7,8 +7,8 @@ const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const session = require('express-session')
 
-const productsController = require('./controllers/ProductsController')
-const productsRatingsController = require('./controllers/ProductRatingsController')
+const productsController = require('./controllers/productsController')
+const productsRatingsController = require('./controllers/productRatingsController')
 const usersController = require('./controllers/UsersController')
 const shoppingCart = require('./controllers/shoppingCartController')
 const app = express();

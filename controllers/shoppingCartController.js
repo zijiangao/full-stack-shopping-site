@@ -332,8 +332,8 @@ const controllers = {
                         payment_method_types: ['card'],
                         line_items:checkoutObjArr,
                         mode: 'payment',
-                        success_url: "http://localhost:5000/payment/success/?" + "reference=" + orderResults.orderReference,
-                        cancel_url: "http://localhost:5000/payment/cancel/",
+                        success_url: "https://young-sands-87308.herokuapp.com/payment/success/?" + "reference=" + orderResults.orderReference,
+                        cancel_url: "https://young-sands-87308.herokuapp.com/payment/cancel/",
                       })
                       .then(session=>{
                         res.json({ id: session.id });

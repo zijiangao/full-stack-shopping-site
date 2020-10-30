@@ -4,12 +4,13 @@ const ProductRatingModel = require('../models/product_ratings')
 const UserModel = require('../models/users')
 const shoppingCartModel = require('../models/shopping_cart')
 const orderModel = require('../models/orders')
-const nodemailer = require('nodemailer')
+
 const querystring = require('querystring')  
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc')
 const ejs = require("ejs")
 const uuid = require('uuid')
 const result = require('dotenv').config()
+const nodemailer = require('nodemailer')
 
 
 

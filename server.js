@@ -6,11 +6,15 @@ const express = require('express')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const session = require('express-session')
+const nodemailer = require('nodemailer')
 
 const productsController = require('./controllers/productsController')
 const productsRatingsController = require('./controllers/productRatingsController')
 const usersController = require('./controllers/UsersController')
 const shoppingCart = require('./controllers/shoppingCartController')
+const ordersController = require('./controllers/ordersController')
+const buyController = require('./controllers/buyController')
+const chatController = require('./controllers/chatController')
 const app = express();
 const port = 5000;
 const YOUR_DOMAIN = 'http://localhost:5000';
@@ -36,6 +40,8 @@ app.use(setUserVarMiddleware)
 /**
  * PRODUCTS ROUTES
  */
+// index route
+app.get('/', productsController.listProducts)
 
 // index route
 app.get('/products', productsController.listProducts)
@@ -111,12 +117,25 @@ app.get('/cart/checkout', authenticatedOnlyMiddleware, shoppingCart.checkout)
 //confirm order
 app.post('/cart/confirmation', authenticatedOnlyMiddleware, shoppingCart.confirmation)
 
+
+//checkout order
+app.get('/buy/checkout', authenticatedOnlyMiddleware, buyController.checkout)
+//confirm order
+app.post('/buy/confirmation', authenticatedOnlyMiddleware, buyController.confirmation)
+// add item to shopping cart
+app.get('/buy/:slug', authenticatedOnlyMiddleware, buyController.buy)
+
 //payment routes
 app.post('/payment', authenticatedOnlyMiddleware, shoppingCart.payment)
 app.get('/payment/success', authenticatedOnlyMiddleware, shoppingCart.paymentSuccess)
 app.get('/payment/cancel', authenticatedOnlyMiddleware, shoppingCart.paymentCancel)
 
 
+// show orders
+app.get('/orders/:reference', authenticatedOnlyMiddleware, ordersController.showOrders)
+
+//chat
+app.get('/chat', authenticatedOnlyMiddleware, chatController.start)
 
 // connect to DB, then inititate Express app
 mongoose.connect( mongoURI, { useNewUrlParser: true, useUnifiedTopology: true } )
@@ -124,7 +143,7 @@ mongoose.connect( mongoURI, { useNewUrlParser: true, useUnifiedTopology: true } 
     // DB connected successfully
     console.log('DB connection successful')
 
-    app.listen(process.env.PORT || port, () => {
+    server=app.listen(process.env.PORT || port, () => {
       console.log(`Shopping app listening on port: ${port}`)
     })
   })
@@ -153,14 +172,16 @@ function authenticatedOnlyMiddleware(req, res, next) {
   next()
 }
 
+
 function setUserVarMiddleware(req, res, next) {
   // default user template var set to null
   res.locals.user = null
-
+  res.locals.userAccess = null
   // check if req.session.user is set,
   // if set, template user var will be set as well
   if (req.session && req.session.user) {
     res.locals.user = req.session.user
+    res.locals.userAccess = req.session.user.access
   }
 
   next()

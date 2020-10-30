@@ -36,6 +36,8 @@ const orderSchema = new mongoose.Schema({
     },
     addresses: String,
     unitNumber:String,
+    mailToName: String,
+    mailToContactNumber: String,
     created_at: {
         type: Date,
         required: true,

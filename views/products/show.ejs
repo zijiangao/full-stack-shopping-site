@@ -17,7 +17,7 @@
                         <a class="btn btn-primary" href="/products/<%= item.slug %>/ratings/new">Give Rating</a>
                     </p>
                     <p>
-                        <a class="btn btn-primary" href="/cart/<%= item.slug %>/buy">Buy Now</a>
+                        <a class="btn btn-primary" href="/buy/<%= item.slug %>">Buy Now</a>
                         <a class="btn btn-primary" href="/cart/<%= item.slug %>/add">Add to cart</a>
                     <% if(result==="success"){  %>
                         <div id="snackbar">Successfully added item to <a href="/cart">shopping cart</a></div>

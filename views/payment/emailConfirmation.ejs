@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <title><%= pageTitle %></title>
+  </head>
+  <body>
+<div class="container content-container">
+    <h1><%= pageTitle%></h1>
+
+        <div class="confirmation-item">
+            <h3>Mail to: </h3>
+            <p><%= name %></p>
+        </div>
+        <div class="confirmation-item">
+            <h3>Contact number: </h3>
+            <p><%= contactNumber %></p>
+        </div>
+        <div class="confirmation-item">
+            <h3>Address: </h3>
+            <p><%= address %></p>
+            <p><%= unitNumber %></p>
+        </div>
+        <ul class="label-list">
+            <li class="shopping-cart-info-label">
+                Product Information
+            </li>
+            <li class="shopping-cart-price-label">
+                Unit Price
+            </li>
+            <li class="shopping-cart-quantity-label">
+                Quantity
+            </li>
+            <li class="shopping-cart-sum-label">
+                Total Price
+            </li>
+        </ul>
+    
+        <% products.addedItemsSlug.forEach( (item, idx) => { %>
+            <ul class="selected-item-card">
+                <li class="shopping-cart-item">
+            
+                        <div class="shopping-cart-img-container" style="margin:10px;">
+                            <img class="img-fluid" src="<%= products.addedItemsImage[idx] %>">     
+                        </div>
+                   
+                </li>
+                <li class="shopping-cart-item">
+                   
+                        <div class="shopping-cart-card-title"  style="margin:10px;">
+                            <%= products.addedItemsName[idx] %>
+                        </div>
+                 
+                    
+                </li>
+                <li class="shopping-cart-item">
+                    <div class="shopping-cart-card-price">
+                        <%= '$' + products.addedItemsPrice[idx] %>
+                    </div>
+                </li>
+                <li class="shopping-cart-item">
+                    <div class="shopping-cart-card-qty">
+                        <%= products.addedItemsQty[idx] %>
+                    </div>
+                </li>
+                <li class="shopping-cart-item">
+                    <div class="shopping-cart-card-sum">
+                        <%= '$' + (products.addedItemsQty[idx]*products.addedItemsPrice[idx]) %>
+                    </div>
+                </li>
+            </ul>       
+            <% }) %> 
+        
+        <button id="payment-button" class="btn btn-primary">Submit</button>
+</div>
+
+<%- include('../partials/footer'); %>

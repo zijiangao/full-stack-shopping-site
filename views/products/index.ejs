@@ -26,7 +26,10 @@
         </div>
         
         <% products.forEach( (item, idx) => { %>
-                <a href="/products/<%= item.slug %>" class="product-card">
+          <% if(userAccess==="admin"){ %>
+                <div class="item-container">
+                  <% } %>
+                  <a href="/products/<%= item.slug %>" class="product-card">
                     <div class="img-container">
                             <img class="img-fluid" src="<%= item.image %>">     
                     </div>
@@ -36,9 +39,22 @@
                         </div>
                         <div class="card-price">
                             <%= 'Price: $' + item.price %>
-                        </div>
+                        </div>  
                     </div>
                 </a>
+                <% if(userAccess==="admin"){ %>
+                  <div class="edit-button">
+                    <a class="btn btn-primary" href="/products/<%= item.slug %>/edit">edit</a>
+                  </div>
+                  <div class="edit-button">
+                    <form method="POST" action="/products/<%= item.slug %>?_method=DELETE">
+                      <button type="submit" class="btn btn-danger">Delete</button>
+                  </form>
+                  </div>
+                
+                </div>
+                <% } %>
+                
         <% }) %>    
     </div>       
 <%- include('../partials/footer'); %>

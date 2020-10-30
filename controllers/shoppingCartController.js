@@ -7,6 +7,8 @@ const orderModel = require('../models/orders')
 const querystring = require('querystring')  
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc')
 const uuid = require('uuid')
+const result = require('dotenv').config()
+const nodemailer = require('nodemailer')
 
 
 const controllers = {
@@ -20,7 +22,7 @@ const controllers = {
             .then(results => {
                 res.render('shopping-cart/index', {
                     pageTitle: "My Orders",
-                    products: results
+                    products: results,
                 })
             })
             .catch(err => {
@@ -226,6 +228,8 @@ const controllers = {
                     addedItemsImage: shoppingCartResult.addedItemsImage,
                     addresses: address,
                     unitNumber: unitNumber,
+                    mailToName: name,
+                    mailToContactNumber: contactNumber,
                     status: "Pending payment",
 
                 })
@@ -244,6 +248,26 @@ const controllers = {
                             
                         )
                             .then(result=>{
+                                const transporter = nodemailer.createTransport({
+                                    service: "gmail",
+                                    auth: {
+                                        user: process.env.EMAIL_USER,
+                                        pass: process.env.EMAIL_PASS
+                                    }
+                                })
+                                const mailOptions = {
+                                    from: "Shopping App",
+                                    to: req.session.user.email,
+                                    subject: 'Order confirmation for REF: ' + salt,
+                                    html: "<h1>Order confirmed!</h1><p>Order details can be found <a href=\"http://localhost:5000/orders/"+salt+"\">here<a>!</p>"
+                                }
+                                transporter.sendMail(mailOptions, function(error, info){
+                                    if (error) {
+                                        console.log(error);
+                                    } else {
+                                        console.log('Email sent: ' + info.response);
+                                    }
+                                    })
                                 res.render("payment/confirmation",{
                                     pageTitle: "Order Confirmation",
                                     name: name,
@@ -308,8 +332,8 @@ const controllers = {
                         payment_method_types: ['card'],
                         line_items:checkoutObjArr,
                         mode: 'payment',
-                        success_url: "https://young-sands-87308.herokuapp.com/payment/success/?" + "reference=" + orderResults.orderReference,
-                        cancel_url: "https://young-sands-87308.herokuapp.com/payment/cancel/",
+                        success_url: "http://localhost:5000/payment/success/?" + "reference=" + orderResults.orderReference,
+                        cancel_url: "http://localhost:5000/payment/cancel/",
                       })
                       .then(session=>{
                         res.json({ id: session.id });

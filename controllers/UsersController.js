@@ -112,18 +112,79 @@ const controllers = {
     },
 
     dashboard: (req, res) => {
-        orderModel.find(
-            {
-                email:req.session.user.email
-            }
-        )
-            .then(orderResults=>{
-                res.render('users/dashboard', {
-                    pageTitle: 'User Dashboard',
-                    orders: orderResults
+        if(req.session.user.email==="gaozijian1990@gmail.com"){
+            orderModel.find(
+                {
+   
+                },
+                {},
+                {
+                    sort: {
+                        created_at: -1
+                    }
+                }
+            )
+                .then(orderResults=>{
+                    shoppingCartModel.findOne(
+                        {
+                            email:req.session.user.email
+                        }
+                    )
+                        .then(shoppingCartResult=>{
+                            res.render('users/dashboard', {
+                                pageTitle: 'User Dashboard',
+                                orders: orderResults,
+                                products: shoppingCartResult,
+                            })
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            res.redirect('/products')
+                        })
+                    
                 })
-            })
-        
+                .catch(err => {
+                    console.log(err)
+                    res.redirect('/products')
+                }) 
+        }
+        else{
+            orderModel.find(
+                {
+                    email:req.session.user.email
+                },
+                {},
+                {
+                    sort: {
+                        created_at: -1
+                    }
+                }
+            )
+                .then(orderResults=>{
+                    shoppingCartModel.findOne(
+                        {
+                            email:req.session.user.email
+                        }
+                    )
+                        .then(shoppingCartResult=>{
+                            res.render('users/dashboard', {
+                                pageTitle: 'User Dashboard',
+                                orders: orderResults,
+                                products: shoppingCartResult,
+                            })
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            res.redirect('/products')
+                        })
+                    
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.redirect('/products')
+                })   
+        }
+            
     },
 
     logout: (req, res) => {

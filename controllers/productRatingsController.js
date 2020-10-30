@@ -14,7 +14,7 @@ const controllers = {
                 res.render('product-ratings/new', {
                     pageTitle: "New Rating",
                     product: result
-                })
+                })               
             })
             .catch(err => {
                 res.redirect('/products')

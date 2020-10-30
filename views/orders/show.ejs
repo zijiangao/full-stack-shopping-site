@@ -1,0 +1,84 @@
+<%- include('../partials/header'); %>
+    
+    <div class="container content-container">
+        <div class="shopping-cart-size-container">
+            
+            <h1><%= pageTitle%></h1>
+            <div class="confirmation-item">
+                <h3>Email: </h3>
+                <p><%= orders.email %></p>
+    
+            </div>
+            <div class="confirmation-item">
+                <h3>Mail to: </h3>
+                <p><%= orders.mailToName %></p>
+            </div>
+            <div class="confirmation-item">
+                <h3>Contact number: </h3>
+                <p><%= orders.mailToContactNumber %></p>
+            </div>
+            <div class="confirmation-item">
+                <h3>Address: </h3>
+                <p><%= orders.address %></p>
+                <p><%= orders.unitNumber %></p>
+            </div>
+            <ul class="label-list">
+                <li class="shopping-cart-info-label">
+                    Product Information
+                </li>
+                <li class="shopping-cart-price-label">
+                    Unit Price
+                </li>
+                <li class="shopping-cart-quantity-label">
+                    Quantity
+                </li>
+                <li class="shopping-cart-sum-label">
+                    Total Price
+                </li>
+                <li class="shopping-cart-status-label">
+                    Order Status
+                </li>
+            </ul>
+        
+            <% orders.addedItemsSlug.forEach( (item, idx) => { %>
+                <ul class="selected-item-card">
+                    <li class="shopping-cart-item">
+                
+                            <div class="shopping-cart-img-container" style="margin:10px;">
+                                <img class="img-fluid" src="<%= orders.addedItemsImage[idx] %>">     
+                            </div>
+                       
+                    </li>
+                    <li class="shopping-cart-item">
+                       
+                            <div class="shopping-cart-card-title"  style="margin:10px;">
+                                <%= orders.addedItemsName[idx] %>
+                            </div>
+                     
+                        
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="shopping-cart-card-price">
+                            <%= '$' + orders.addedItemsPrice[idx] %>
+                        </div>
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="shopping-cart-card-qty">
+                            <%= orders.addedItemsQty[idx] %>
+                        </div>
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="shopping-cart-card-sum">
+                            <%= '$' + (orders.addedItemsQty[idx]*orders.addedItemsPrice[idx]) %>
+                        </div>
+                    </li>
+                    <li class="shopping-cart-item">
+                        <div class="shopping-cart-status">
+                            <%= orders.status %>
+                        </div>
+                    </li>
+                </ul>       
+            <% }) %> 
+        </div>
+        
+    </div>

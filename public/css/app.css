@@ -317,4 +317,14 @@ img{
 .order-status-label{
     width:100px;
 }
-
+.empty-order{
+    display:inline-block;
+    width:550px;
+}
+.edit-button{
+    display:inline-block;
+}
+.item-container{
+    width:300px;
+    display:inline-block;
+}

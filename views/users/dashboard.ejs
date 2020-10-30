@@ -2,8 +2,15 @@
     
     <div class="container content-container">
         <div class="shopping-cart-size-container">
-        <h1>Welcome to your account</h1>
-        <h2 style="text-align: left; margin-top: 20px;">My Orders</h2>
+        <h1>Welcome to dashboard</h1>
+        <% if (userAccess==="admin") { %>
+            <h2 style="text-align: left; margin-top: 20px;">All Orders</h2>
+          <% } else { %>
+            <h2 style="text-align: left; margin-top: 20px;">My Orders</h2>
+          <% } %>
+        <% console.log(orders.length) %>
+        <% if(orders.length!==0){ %>
+            <% console.log(orders.addedItemsSlug) %>
         <ul class="label-list">
             <li class="order-reference-label">
                 <b>Order Reference</b>
@@ -18,9 +25,11 @@
         <% orders.forEach((order,orderIndex)=>{ %>
                 <ul class="selected-item-card">
                     <li class="shopping-cart-item">
-                        <div class="order-reference">
-                            <%= order.orderReference %>
-                        </div>    
+                        <a href="/orders/<%= order.orderReference %>">
+                            <div class="order-reference">
+                                <%= order.orderReference %>
+                            </div>   
+                        </a>
                     </li>
                     <li class="shopping-cart-item">
                         <div class="order-time">
@@ -35,6 +44,98 @@
                     </li>
                 </ul>       
         <% }) %>
+        <% } else{ %>
+            <ul class="no-shopping-cart-item">
+                <img class="empty-order" src="/images/orderup-emptystate-sadbag.jpg" stlye="display: inline-block; width:550px;">
+                <h1>Start shopping <a href="/products">here</a></h1>
+            </ul>
+        <% } %>
+        <% if (userAccess==="normal") { %>
+            <h2 style="text-align: left; margin-top: 300px;">My Shopping Cart</h2>
+            <% if(products.addedItemsSlug.length!==0){ %>
+                <ul class="label-list">
+                    <li class="shopping-cart-info-label">
+                        Product Information
+                    </li>
+                    <li class="shopping-cart-price-label">
+                        Unit Price
+                    </li>
+                    <li class="shopping-cart-quantity-label">
+                        Quantity
+                    </li>
+                    <li class="shopping-cart-sum-label">
+                        Total Price
+                    </li>
+                    <li class="shopping-cart-operations-label">
+                        Operations
+                    </li>  
+                </ul>
+                
+                <% products.addedItemsSlug.forEach( (item, idx) => { %>
+                    <ul class="selected-item-card">
+                        <li class="shopping-cart-item">
+                            <a href="/products/<%= item %>">
+                                <div class="shopping-cart-img-container">
+                                    <img class="img-fluid" src="<%= products.addedItemsImage[idx] %>">     
+                                </div>
+                            </a>
+                        </li>
+                        <li class="shopping-cart-item">
+                            <a href="/products/<%= item %>">
+                                <div class="shopping-cart-card-title">
+                                    <%= products.addedItemsName[idx] %>
+                                </div>
+                            </a>
+                            
+                        </li>
+                        <li class="shopping-cart-item">
+                            <div class="shopping-cart-card-price">
+                                <%= '$' + products.addedItemsPrice[idx] %>
+                            </div>
+                        </li>
+                        <li class="shopping-cart-item">
+                            <div class="shopping-cart-card-qty">
+                                <%= products.addedItemsQty[idx] %>
+                            </div>
+                        </li>
+                        <li class="shopping-cart-item">
+                            <div class="shopping-cart-card-sum">
+                                <%= '$' + (products.addedItemsQty[idx]*products.addedItemsPrice[idx]) %>
+                            </div>
+                        </li>
+                        <li class="shopping-cart-item">
+                            <div class="shopping-cart-card-operations">
+                                <form method="POST" action="/cart/<%= item %>?_method=DELETE">
+                                    <button type="submit" class="btn  btn-primary">Remove</button>
+                                </form>
+                            </div>
+                        </li>
+                    </ul>       
+                    <% }) %>  
+                    <ul class="checkout-list">
+                    <li class="checkout-total-price">
+                        <% let sum=0 %>
+                        <% products.addedItemsPrice.forEach((price,index)=>{ %>
+                            <% sum= sum + price*products.addedItemsQty[index]%>
+                        <% }) %>
+                        <%= "Total Price: $" + Number(sum).toFixed(2)%>
+                    </li>
+                    <li class="checkout-button">
+                        <!-- <form method="POST" action="/cart/checkout">
+                            <button type="submit" class="btn  btn-primary" id="checkout-button">Checkout</button>
+                        </form> -->
+                        <a class="btn btn-primary" href="/cart/checkout">Checkout</a>
+                    </li>  
+                    </ul> 
+            <% } else{ %>
+                <ul class="no-shopping-cart-item">
+                    <img src="/images/empty-cart.png">
+                    <h1>Start shopping <a href="/products">here</a></h1>
+                </ul>
+            <% } %>
+        <% }%>
+        
+        
         </div>
     </div>
 

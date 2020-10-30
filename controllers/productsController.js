@@ -1,31 +1,33 @@
 const _ = require('lodash') 
 const ProductModel = require('../models/products')
 const ProductRatingModel = require('../models/product_ratings')
+const UserModel = require('../models/users')
 
 const controllers = {
 
     listProducts: (req, res) => {
         // using the promise way
-        ProductModel.find()
+
+            ProductModel.find()
             .then(results => {
                 res.render('products/index', {
                     pageTitle: "Home",
-                    products: results
+                    products: results,
+                    //userAccess: req.session.user.access
                 })
             })
+            .catch(err => {
+                console.log(err)
+                res.redirect('/products')
+            })
+        
 
-        // callback way
-        // ProductModel.find({}, (err, doc) => {
-        //     res.render('products/index', {
-        //         pageTitle: "List of Baked Goods",
-        //         bakegoods: doc
-        //     })
-        // })
+       
     },
 
     showProduct: (req, res) => {
         let slug = req.params.slug
-
+        
         ProductModel.findOne({
             slug: slug
         })
@@ -48,12 +50,12 @@ const controllers = {
                     }
                 )
                     .then(ratingResults => {
-                        res.render('products/show', {
-                            pageTitle: result.name,
-                            item: result,
-                            ratings: ratingResults,
-                            result: req.query.result
-                        })
+                            res.render('products/show', {
+                                pageTitle: result.name,
+                                item: result,
+                                ratings: ratingResults,
+                                result: req.query.result
+                            })        
                     })
                     .catch(err => {
                         console.log(err)
@@ -94,11 +96,11 @@ const controllers = {
             slug: req.params.slug
         })
             .then(result => {
-                res.render('products/edit', {
-                    pageTitle: "Edit Form for " + result.name,
-                    item: result,
-                    itemID: result.slug
-                })
+                    res.render('products/edit', {
+                        pageTitle: "Edit Form for " + result.name,
+                        item: result,
+                        itemID: result.slug
+                    })                             
             })
             .catch(err => {
                 res.redirect('/products')

@@ -1,8 +1,8 @@
 {
   "name": "shoping-site",
   "version": "1.0.0",
-  "engine":{
-    "node":"v12.18.3"
+  "engine": {
+    "node": "v12.18.3"
   },
   "description": "",
   "main": "server.js",
@@ -31,7 +31,9 @@
     "lodash": "^4.17.20",
     "method-override": "^3.0.0",
     "mongoose": "^5.10.7",
+    "nodemailer": "^6.4.14",
     "querystring": "^0.2.0",
+    "socket.io": "^2.3.0",
     "stripe": "^8.117.0",
     "uuid": "^8.3.1"
   }
